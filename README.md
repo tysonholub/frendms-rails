@@ -28,6 +28,16 @@ After installation execute:
 
 This will generate the migration for the elements table used to store element values. Use with Devise authentication to update front end elements on the fly via ajax. When logged in, any elements with the class "frend" will be editable.
 
+Add to the bottom of your layout file
+
+<% if user_signed_in? %>
+<script>
+	$(document).ready(function(){
+		$('.frend').addClass('enabled')
+	})
+</script>
+<% end %>
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake false` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
