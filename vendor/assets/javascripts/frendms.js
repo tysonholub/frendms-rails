@@ -25,10 +25,10 @@ function updateElement(element){
 	element.parent().toggleClass('focused')
 	var id = element.dompath()
 	var text = element.val()
-	var page = element.attr('data')
+	var page = element.parent().attr('data')
 
 	if(text.length < 1){
-		text = element.parent().attr('id')
+		text = element.parent().dompath()
 	}
 	$.ajax({
 		url : 'element/update',
@@ -48,7 +48,7 @@ $(document).ready(function(){
 	$('.frend').click(function(){
 		if(($(this).find('textarea').prop('tagName')) != 'TEXTAREA'){
 			$(this).toggleClass('focused')
-			var id = $(this).attr('id')
+			var id = $(this).dompath()
 			var content = $(this).text()
 			$(this).html('<textarea id="box-in-'+id+'" class="input-box" />')
 			$('#box-in-'+id).val(content)
