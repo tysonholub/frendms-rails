@@ -1,6 +1,6 @@
 function getElements(page){
 	$.ajax({
-		url : 'getelements.php',
+		url : 'element/all',
 		type : 'GET',
 		data : { page : page },
 		dataType : 'json',
@@ -28,9 +28,9 @@ function updateElement(element){
 	if(text.length < 1){
 		text = element.parent().attr('id')
 	}
-	var page = 'index'
+	var page = element.parent().attr('data')
 	$.ajax({
-		url : 'updateelement.php',
+		url : 'element/update',
 		data : { page : page, text : text, id : id },
 		type : 'POST',
 		dataType : 'json'
