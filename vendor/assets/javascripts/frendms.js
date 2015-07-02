@@ -32,7 +32,7 @@ function updateElement(element){
 	$.ajax({
 		url : 'element/update',
 		data : { page : page, text : text, id : id },
-		type : 'POST',
+		type : 'PUT',
 		dataType : 'json'
 	})		
 }
