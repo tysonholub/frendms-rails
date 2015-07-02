@@ -1,5 +1,5 @@
 module Frendms
-  class FrendmsController < ApplicationController
+  class ElementController < ::ApplicationController
   
     def get_elements
       e = Element.all.where(['page = ? OR page = "footer"', params[:page]])
