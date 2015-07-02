@@ -1,8 +1,8 @@
 # Frendms::Rails
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/frendms/rails`. To experiment with that code, run `bin/console` for an interactive prompt.
+Frond End Management System gem.
 
-TODO: Delete this and the text above, and describe your gem
+Use this gem to modify the front end of any website on the fly via ajax.
 
 ## Installation
 
@@ -22,7 +22,11 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+After installation execute:
+
+    $ rails g frendms
+
+This will generate the migration for the elements table used to store element values. Use with Devise authentication to update front end elements on the fly via ajax. When logged in, any elements with the class "frend" will be editable.
 
 ## Development
 

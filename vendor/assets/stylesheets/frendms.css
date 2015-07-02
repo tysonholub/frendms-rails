@@ -1,3 +1,7 @@
+body{
+	display:none;
+}
+
 .input-box{
 	background-color: transparent;
 	border: transparent;
@@ -8,15 +12,15 @@
 	overflow:hidden;
 }
 
-.frend{
+.frend.enabled{
 	word-wrap:break-word;
 }
 
-.frend.focused{
+.frend.enabled.focused{
 	outline:1px dotted green;
 }
 
-.frend:hover{
+.frend.enabled:hover{
 	cursor:pointer;
 	outline:1px dotted green;
 }

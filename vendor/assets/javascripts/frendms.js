@@ -1,6 +1,6 @@
 function getElements(page){
 	$.ajax({
-		url : 'element/all',
+		url : '/element/all',
 		type : 'GET',
 		data : { page : page },
 		dataType : 'json',
@@ -9,7 +9,7 @@ function getElements(page){
 		},
 		success : function(data) {
 			$.each(data, function(i, element){
-				$(element['id']).html(element['text'])
+				$(element['elementId']).html(element['text'])
 			})
 			$('body').show()
 		},
@@ -23,29 +23,29 @@ function getElements(page){
 
 function updateElement(element){
 	element.parent().toggleClass('focused')
-	var id = element.dompath()
+	var id = element.dompath().replace('.enabled', '')
 	var text = element.val()
 	var page = element.parent().attr('data')
-
+	
 	if(text.length < 1){
 		text = element.parent().dompath()
 	}
 	$.ajax({
-		url : 'element/update',
+		url : '/element/update',
 		data : { page : page, text : text, id : id },
 		type : 'PUT',
 		dataType : 'json'
 	})		
 }
 
-$(document).ready(function(){
+$(window).load(function(){
 	$.valHooks.textarea = {
 		get: function( elem ) {
 		    return elem.value.replace( /\r?\n/g, "<br />" );
 		}
 	};
 
-	$('.frend').click(function(){
+	$('.frend.enabled').on('click', function(){
 		if(($(this).find('textarea').prop('tagName')) != 'TEXTAREA'){
 			$(this).toggleClass('focused')
 			var id = $(this).dompath()
@@ -72,7 +72,7 @@ $(document).ready(function(){
 		}
 	})
 
-	$('.frend').on('blur', 'textarea', function(){	
+	$('.frend.enabled').on('blur', 'textarea', function(){	
 		updateElement($(this));
 		if($(this).val().length < 1){
 			$(this).parent().html($(this).parent().prop('tagName') + '#' + $(this).parent().attr('id'))
@@ -81,7 +81,7 @@ $(document).ready(function(){
 		}
 	})
 
-	$('.frend').on('keyup', 'textarea', function(){
+	$('.frend.enabled').on('keyup', 'textarea', function(){
 		var h = $(this).height()
 		$(this).css('height', '0px')
 		var sh = $(this).prop('scrollHeight')

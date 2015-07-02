@@ -27,6 +27,10 @@ module Frendms
         else
           e.delete
         end
+      else
+        respond_to do |format|
+          format.json { render :json => { 'error' => 'you must be logged in to commit changes' } }
+        end
       end
     end
     
