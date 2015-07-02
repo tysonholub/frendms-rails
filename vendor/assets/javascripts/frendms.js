@@ -25,10 +25,11 @@ function updateElement(element){
 	element.parent().toggleClass('focused')
 	var id = element.dompath()
 	var text = element.val()
+	var page = element.attr('data')
+
 	if(text.length < 1){
 		text = element.parent().attr('id')
 	}
-	var page = element.parent().attr('data')
 	$.ajax({
 		url : 'element/update',
 		data : { page : page, text : text, id : id },
