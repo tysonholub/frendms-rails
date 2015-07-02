@@ -1,4 +1,4 @@
-class CreateElements < ActiveRecord::Migration
+class CreateElementsTable < ActiveRecord::Migration
   def self.up
     create_table :elements do |t|
       t.string :elementId
