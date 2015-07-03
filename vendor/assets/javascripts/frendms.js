@@ -9,7 +9,15 @@ function getElements(page){
 		},
 		success : function(data) {
 			$.each(data, function(i, element){
-				$(element['elementId']).html(element['text'])
+				if($(element['elementId'].length > 1)){
+					$.each($(element['elementId']), function(j, inner){
+						if($(inner).dompath().split(' ').length + 1 == element['elementId'].split(' ').length){
+							$(inner).html(element['text'])
+						}
+					})
+				} else {
+					$(element['elementId']).html(element['text'])
+				}
 			})
 			$('body').show()
 		},
@@ -52,17 +60,20 @@ $(window).load(function(){
 	$('.frend.enabled').on('click', function(){
 		if(($(this).find('textarea').prop('tagName')) != 'TEXTAREA'){
 			$(this).toggleClass('focused')
-			var id = $(this).dompath()
+			// var id = $(this).dompath()
 			var content = $(this).text()
 			value = content
-			$(this).html('<textarea id="box-in-'+id+'" class="input-box" />')
-			$('#box-in-'+id).val(content)
+			$(this).html('<textarea id="box-in-frend" class="input-box" />')
+			$('#box-in-frend').val(content)
 			$(this).find('.input-box').select()
 		}
 	})
 
 	$('.frend.enabled').on('blur', 'textarea', function(){
-		updateElement($(this))
+		if($(this).val() != value){
+			updateElement($(this))
+		}
+
 		if($(this).val().length < 1){
 			$(this).parent().html($(this).parent().dompath().replace('.enabled', ''))
 		} else {
