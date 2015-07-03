@@ -25,7 +25,16 @@ module Frendms
             format.json { render :json => e.to_json }
           end
         else
-          e.delete
+          if not e.nil?
+            e.delete
+            respond_to do |format|
+              format.json { render :json => { 'resp' => "deleted element record for element id '#{params[:id]}'" } }
+            end
+          else
+            respond_to do |format|
+              format.json { render :json => { 'resp' => 'nothing to do' } }
+            end
+          end
         end
       else
         respond_to do |format|

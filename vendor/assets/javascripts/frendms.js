@@ -24,17 +24,20 @@ function getElements(page){
 function updateElement(element){
 	element.parent().toggleClass('focused')
 	var id = element.dompath().replace('.enabled', '')
-	var text = element.val()
-	var page = element.parent().attr('data')
+	var text = element.val().trim()
+	var page = element.parent().attr('data-frend')
 	
-	if(text.length < 1){
-		text = element.parent().dompath()
-	}
 	$.ajax({
 		url : '/element/update',
 		data : { page : page, text : text, id : id },
 		type : 'PUT',
-		dataType : 'json'
+		dataType : 'json',
+		success : function(data) {
+			$.notify('Successfully updated element', 'success')
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown){
+			$.notify('Failed to update element', 'error')
+		}
 	})		
 }
 
@@ -45,39 +48,25 @@ $(window).load(function(){
 		}
 	};
 
+	var value = ''
 	$('.frend.enabled').on('click', function(){
 		if(($(this).find('textarea').prop('tagName')) != 'TEXTAREA'){
 			$(this).toggleClass('focused')
 			var id = $(this).dompath()
 			var content = $(this).text()
+			value = content
 			$(this).html('<textarea id="box-in-'+id+'" class="input-box" />')
 			$('#box-in-'+id).val(content)
 			$(this).find('.input-box').select()
-			var elementParents = [],
-				elm,
-				entry;
-
-			elementParents.push($(this).prop('tagName').toLowerCase()+'#'+$(this).attr('id').toLowerCase())
-			for(elm = this.parentNode; elm; elm = elm.parentNode){
-				entry = elm.tagName.toLowerCase();
-				if(entry == 'html'){
-					break;
-				}
-				if(elm.idName){
-					entry += "#" + elm.idName;
-				}
-				elementParents.push(entry);
-			}
-			elementParents.reverse();
 		}
 	})
 
-	$('.frend.enabled').on('blur', 'textarea', function(){	
-		updateElement($(this));
+	$('.frend.enabled').on('blur', 'textarea', function(){
+		updateElement($(this))
 		if($(this).val().length < 1){
-			$(this).parent().html($(this).parent().prop('tagName') + '#' + $(this).parent().attr('id'))
+			$(this).parent().html($(this).parent().dompath().replace('.enabled', ''))
 		} else {
-			$(this).parent().html($(this).val())				
+			$(this).parent().html($(this).val())	
 		}
 	})
 
