@@ -19,7 +19,7 @@ function getElements(page){
 					$(element['elementId']).html(element['text'])
 				}
 			})
-			$('body').show()
+			$('.frend').show()
 		},
 		complete : function(data) {
 
