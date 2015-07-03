@@ -50,21 +50,20 @@ function updateElement(element){
 }
 
 $(window).load(function(){
-	$.valHooks.textarea = {
-		get: function( elem ) {
-		    return elem.value.replace( /\r?\n/g, "<br />" );
-		}
-	};
+	// $.valHooks.textarea = {
+// 		get: function( elem ) {
+// 		    return elem.value.replace( /\r?\n/g, "<br />" );
+// 		}
+// 	};
 
 	var value = ''
 	$('.frend.enabled').on('click', function(){
 		if(($(this).find('textarea').prop('tagName')) != 'TEXTAREA'){
 			$(this).toggleClass('focused')
-			// var id = $(this).dompath()
 			var content = $(this).text()
 			value = content
 			$(this).html('<textarea id="box-in-frend" class="input-box" />')
-			$('#box-in-frend').val(content)
+			$('#box-in-frend').val(content.trim())
 			$(this).find('.input-box').select()
 		}
 	})
@@ -79,6 +78,7 @@ $(window).load(function(){
 		} else {
 			$(this).parent().html($(this).val())	
 		}
+		$('.frend').removeClass('focused')
 	})
 
 	$('.frend.enabled').on('keyup', 'textarea', function(){
