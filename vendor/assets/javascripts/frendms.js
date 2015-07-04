@@ -50,21 +50,20 @@ function updateElement(element){
 }
 
 $(window).load(function(){
-	// $.valHooks.textarea = {
-// 		get: function( elem ) {
-// 		    return elem.value.replace( /\r?\n/g, "<br />" );
-// 		}
-// 	};
-
 	var value = ''
 	$('.frend.enabled').on('click', function(){
 		if(($(this).find('textarea').prop('tagName')) != 'TEXTAREA'){
+			var height = $(this).height()
+			var width = $(this).width()
 			$(this).toggleClass('focused')
 			var content = $(this).text()
 			value = content
-			$(this).html('<textarea id="box-in-frend" class="input-box" />')
+			$(this).html('<textarea id="box-in-frend" class="frend-input-box" />')
 			$('#box-in-frend').val(content.trim())
-			$(this).find('.input-box').select()
+			$(this).find('.frend-input-box').css({
+				'height' : height + 'px',
+				'width' : width + 'px'
+			}).select()
 		}
 	})
 
