@@ -22,7 +22,9 @@ function getElements(page){
 			$('.frend').show()
 		},
 		complete : function(data) {
-
+		    if (location.hash) {
+		        location.href = location.hash;
+		    }
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown){
 		}
