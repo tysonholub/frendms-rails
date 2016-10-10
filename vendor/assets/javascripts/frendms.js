@@ -1,15 +1,16 @@
-function getElements(page){
+function getElements(frender){
 	$.ajax({
 		url : '/element/all',
 		type : 'GET',
-		data : { page : page },
+		data : { frender : frender },
 		dataType : 'json',
 		beforeSend : function() {
 
 		},
 		success : function(data) {
+			console.log(data);
 			$.each(data, function(i, element){
-				if($(element['elementId'].length > 1)){
+				if(element['elementId'].length > 1){
 					$.each($(element['elementId']), function(j, inner){
 						if($(inner).dompath().split(' ').length + 1 == element['elementId'].split(' ').length){
 							$(inner).html(element['text'])
@@ -32,14 +33,14 @@ function getElements(page){
 }
 
 function updateElement(element){
-	element.parent().toggleClass('focused')
-	var id = element.dompath().replace('.enabled', '')
-	var text = element.val().trim()
-	var page = element.parent().attr('data-frend')
-	
+	element.parent().toggleClass('focused');
+	var id = element.dompath().replace('.enabled', '');
+	var text = element.val().trim();
+	var frender = element.closest('.frender').attr('id');
+
 	$.ajax({
 		url : '/element/update',
-		data : { page : page, text : text, id : id },
+		data : { frender : frender, text : text, id : id },
 		type : 'PUT',
 		dataType : 'json',
 		success : function(data) {
@@ -48,11 +49,16 @@ function updateElement(element){
 		error : function(XMLHttpRequest, textStatus, errorThrown){
 			$.notify('Failed to update element', 'error')
 		}
-	})		
+	});
 }
 
 $(window).load(function(){
-	var value = ''
+
+	$('.frender').each(function(index, frender){
+		getElements(frender.id);
+	});
+
+	var value = '';
 	$('.frend.enabled').on('click', function(){
 		if(($(this).find('textarea').prop('tagName')) != 'TEXTAREA'){
 			var height = $(this).height()
@@ -77,7 +83,7 @@ $(window).load(function(){
 		if($(this).val().length < 1){
 			$(this).parent().html($(this).parent().dompath().replace('.enabled', ''))
 		} else {
-			$(this).parent().html($(this).val())	
+			$(this).parent().html($(this).val())
 		}
 		$('.frend').removeClass('focused')
 	})

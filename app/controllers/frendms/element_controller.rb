@@ -1,26 +1,26 @@
 module Frendms
   class ElementController < ::ApplicationController
-  
+
     def get_elements
-      e = Element.all.where(['page = ? OR page = "footer" OR page = "header"', params[:page]])
+      e = Element.where('frender = ?', params[:frender])
       respond_to do |format|
         format.json { render :json => e.to_json(:only => [:elementId, :text]) }
       end
     end
-  
+
     def update_element
       if user_signed_in?
-        e = Element.where(['elementId = ? AND page = ?', [params[:id]], params[:page]]).first
-      
+        e = Element.find_by(:elementId => params[:id], :frender => params[:frender])
+
         if(params[:text].length > 0)
           if e.nil?
             e = Element.new
-            e.page = params[:page]
+            e.frender = params[:frender]
             e.elementId = params[:id]
           end
           e.text = params[:text]
           e.save
-        
+
           respond_to do |format|
             format.json { render :json => e.to_json }
           end
@@ -42,6 +42,6 @@ module Frendms
         end
       end
     end
-    
+
   end
 end

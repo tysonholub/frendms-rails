@@ -2,7 +2,7 @@ class CreateElementsTable < ActiveRecord::Migration
   def self.up
     create_table :elements do |t|
       t.string :elementId
-      t.string :page
+      t.string :frender
       t.text :text
 
       t.timestamps

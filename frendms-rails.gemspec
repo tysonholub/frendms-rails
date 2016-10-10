@@ -1,32 +1,36 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'frendms/rails/version'
+# -*- encoding: utf-8 -*-
+# stub: frendms-rails 0.1.0 ruby lib
 
-Gem::Specification.new do |spec|
-  spec.name          = "frendms-rails"
-  spec.version       = Frendms::Rails::VERSION
-  spec.authors       = ["Tyson Holub"]
-  spec.email         = ["tyson@tysonholub.com"]
+Gem::Specification.new do |s|
+  s.name = "frendms-rails"
+  s.version = "0.1.0"
 
-  spec.summary       = %q{The Front End Management System}
-  spec.description   = %q{Click a html element to make it an editable textarea. Changes are saved to the database via ajax. When the page is loaded the changes will be injected into that element.}
-  spec.homepage      = "http://frendms.tysonholub.com"
-  spec.license       = "MIT"
+  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
+  s.metadata = { "allowed_push_host" => "TODO: Set to 'http://mygemserver.com'" } if s.respond_to? :metadata=
+  s.require_paths = ["lib"]
+  s.authors = ["Tyson Holub"]
+  s.bindir = "exe"
+  s.date = "2016-10-10"
+  s.description = "Click a html element to make it an editable textarea. Changes are saved to the database via ajax. When the page is loaded the changes will be injected into that element."
+  s.email = ["tyson@tysonholub.com"]
+  s.files = [".gitignore", ".travis.yml", "CODE_OF_CONDUCT.md", "Gemfile", "LICENSE.txt", "README.md", "Rakefile", "app/controllers/frendms/element_controller.rb", "app/models/frendms/element.rb", "bin/console", "bin/setup", "config/routes.rb", "frendms-rails.gemspec", "lib/frendms/rails.rb", "lib/frendms/rails/version.rb", "lib/generators/frendms/frendms_generator.rb", "lib/generators/frendms/templates/migration.rb", "vendor/assets/javascripts/dompath.js", "vendor/assets/javascripts/frendms.js", "vendor/assets/stylesheets/frendms.css"]
+  s.homepage = "http://frendms.tysonholub.com"
+  s.licenses = ["MIT"]
+  s.rubygems_version = "2.2.2"
+  s.summary = "The Front End Management System"
 
-  # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
-  # delete this section to allow pushing this gem to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
+  if s.respond_to? :specification_version then
+    s.specification_version = 4
+
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_development_dependency(%q<bundler>, ["~> 1.10"])
+      s.add_development_dependency(%q<rake>, ["~> 10.0"])
+    else
+      s.add_dependency(%q<bundler>, ["~> 1.10"])
+      s.add_dependency(%q<rake>, ["~> 10.0"])
+    end
   else
-    raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
+    s.add_dependency(%q<bundler>, ["~> 1.10"])
+    s.add_dependency(%q<rake>, ["~> 10.0"])
   end
-
-  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
-
-  spec.add_development_dependency "bundler", "~> 1.10"
-  spec.add_development_dependency "rake", "~> 10.0"
 end
