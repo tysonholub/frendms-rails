@@ -8,18 +8,9 @@ function getElements(frender){
 
 		},
 		success : function(data) {
-			console.log(data);
 			$.each(data, function(i, element){
-				if(element['elementId'].length > 1){
-					$.each($(element['elementId']), function(j, inner){
-						if($(inner).dompath().split(' ').length + 1 == element['elementId'].split(' ').length){
-							$(inner).html(element['text'])
-						}
-					})
-				} else {
-					$(element['elementId']).html(element['text'])
-				}
-			})
+				$(element['elementId'])[element['elementIndex']].innerHTML = element['text'];
+			});
 			$('.frend').show()
 		},
 		complete : function(data) {
@@ -36,11 +27,17 @@ function updateElement(element){
 	element.parent().toggleClass('focused');
 	var id = element.dompath().replace('.enabled', '');
 	var text = element.val().trim();
+	var index = $(id).toArray().indexOf(element.parent()[0]);
 	var frender = element.closest('.frender').attr('id');
 
 	$.ajax({
 		url : '/element/update',
-		data : { frender : frender, text : text, id : id },
+		data : {
+			frender : frender,
+			text : text,
+			index : index,
+			id : id
+		},
 		type : 'PUT',
 		dataType : 'json',
 		success : function(data) {

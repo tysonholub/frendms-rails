@@ -2,6 +2,7 @@ class CreateElementsTable < ActiveRecord::Migration
   def self.up
     create_table :elements do |t|
       t.string :elementId
+      t.integer :elementIndex
       t.string :frender
       t.text :text
 
