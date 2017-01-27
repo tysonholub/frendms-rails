@@ -34,7 +34,7 @@ Add to the bottom of your layout file
 <% if user_signed_in? %>
 <script>
 	$(document).ready(function(){
-		$('.frend').addClass('enabled')
+		$('.frend').addClass('enabled').attr('contenteditable', 'true')
 	})
 </script>
 <% end %>
@@ -61,7 +61,7 @@ Example of an editable layout:
 <% if user_signed_in? %>
 <script>
 	$(document).ready(function(){
-		$('.frend').addClass('enabled')
+		$('.frend').addClass('enabled').attr('contenteditable', 'true')
 	})
 </script>
 <% end %>
